@@ -44,6 +44,11 @@
 
     renderFavoritos();
 
+    // Exportar CSV (HU-03): deshabilitado si no hay citas
+    var hayCitas = P.store.citas().length > 0;
+    $('btn-exportar').disabled = !hayCitas;
+    $('btn-exportar').title = hayCitas ? 'Descargar todas tus citas en un archivo para Excel' : 'Aún no tienes citas para exportar';
+
     // Próximas citas
     $('lista-citas').innerHTML = prox.length ? '<div class="table-wrap"><table class="table"><thead><tr><th scope="col">Fecha</th><th scope="col">Servicio</th><th scope="col">Mascota</th><th scope="col">Sede</th><th scope="col">Estado</th><th scope="col"><span class="sr-only">Acciones</span></th></tr></thead><tbody>' +
       prox.map(function (c) {
@@ -75,6 +80,14 @@
       '<a class="btn btn--sm" href="servicios.html" style="width:auto">Ver el catálogo</a></div>';
   }
   document.addEventListener('pc:favoritos', renderFavoritos);
+
+  // Exportar historial de citas (HU-03)
+  $('btn-exportar').addEventListener('click', function () {
+    var citas = P.store.citas();
+    if (!citas.length) return;
+    P.csv.descargar(P.csv.nombreArchivo(), P.csv.construir(citas));
+    P.toast('Descargamos ' + citas.length + (citas.length === 1 ? ' cita' : ' citas') + ' en un archivo CSV.', 'download');
+  });
 
   // Cerrar sesión
   document.querySelectorAll('[data-logout]').forEach(function (b) {

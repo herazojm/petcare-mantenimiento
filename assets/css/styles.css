@@ -825,3 +825,6 @@ dialog.modal::backdrop { background: rgba(31, 41, 51, .45); backdrop-filter: blu
   .fav-btn { top: 8px; right: 8px; width: 36px; height: 36px; }
   .catalog-results .service-card__body { padding-right: 40px; }
 }
+
+/* 23. Exportar CSV (HU-03) */
+.link-btn:disabled { color: var(--gris-texto); opacity: .6; cursor: not-allowed; text-decoration: none; }
