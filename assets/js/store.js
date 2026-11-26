@@ -6,21 +6,79 @@
    ========================================================= */
 (function () {
   var P = (window.PC = window.PC || {});
-  var KEY = 'petcare:v1';
+  /* ---------- Versionado y migración de datos (HU-05 · preventivo) ----------
+     Cada cambio en la forma de los datos sube ESQUEMA y agrega una función
+     en MIGRACIONES que lleva los datos de la versión N a la N+1. Así nadie
+     pierde sus mascotas, citas o favoritos cuando el sitio se actualiza.
+       v1 → datos originales del sitio (clave 'petcare:v1', sin número de versión)
+       v2 → agrega 'favoritos' (HU-02) y el campo 'esquema'; nueva clave 'petcare:datos'
+  */
+  var KEY = 'petcare:datos';
+  var CLAVES_ANTIGUAS = ['petcare:v1'];
+  var ESQUEMA = 2;
   var memoria = null; // respaldo si localStorage no está disponible
 
-  function vacio() { return { user: null, owner: null, pets: [], citas: [], favoritos: [], seq: 1 }; }
+  var MIGRACIONES = {
+    1: function (d) {
+      d.favoritos = Array.isArray(d.favoritos) ? d.favoritos.filter(function (x) { return typeof x === 'string'; }) : [];
+      d.seq = typeof d.seq === 'number' && d.seq > 0 ? d.seq : d.pets.length + d.citas.length + 1;
+      d.pets.forEach(function (p) {
+        if (!P.TAMANOS || !P.TAMANOS[p.tamano]) p.tamano = 'mediano';
+        if (p.vacunas !== 'al-dia') p.vacunas = 'pendiente';
+      });
+      return d;
+    }
+  };
+
+  function vacio() { return { esquema: ESQUEMA, user: null, owner: null, pets: [], citas: [], favoritos: [], seq: 1 }; }
+
+  function estructuraValida(d) { return !!d && typeof d === 'object' && Array.isArray(d.pets) && Array.isArray(d.citas); }
+
+  /* Guarda una copia del texto dañado para no perderlo y poder revisarlo */
+  function respaldar(raw, motivo) {
+    try { window.localStorage.setItem('petcare:respaldo-' + Date.now(), JSON.stringify({ motivo: motivo, datos: raw })); } catch (e) { /* sin espacio */ }
+    if (window.console) console.warn('[PetCare] Datos guardados no válidos (' + motivo + '). Se guardó un respaldo y se empezó de cero.');
+  }
+
+  /** Lleva los datos de su versión a ESQUEMA. Devuelve true si hubo cambios. */
+  function migrar(d) {
+    var v = typeof d.esquema === 'number' ? d.esquema : 1;
+    if (v > ESQUEMA) return false; // datos de una versión más nueva: no los tocamos
+    var cambio = false;
+    while (v < ESQUEMA) {
+      if (!MIGRACIONES[v]) break;
+      d = MIGRACIONES[v](d) || d;
+      v++; cambio = true;
+    }
+    d.esquema = v;
+    return cambio;
+  }
 
   function leer() {
+    var raw = null, desde = KEY;
     try {
-      var raw = window.localStorage.getItem(KEY);
-      if (raw) {
-        var d = JSON.parse(raw);
-        if (d && Array.isArray(d.pets) && Array.isArray(d.citas)) return d;
+      raw = window.localStorage.getItem(KEY);
+      if (!raw) {
+        for (var i = 0; i < CLAVES_ANTIGUAS.length && !raw; i++) {
+          raw = window.localStorage.getItem(CLAVES_ANTIGUAS[i]);
+          desde = CLAVES_ANTIGUAS[i];
+        }
       }
-    } catch (e) { /* modo privado o almacenamiento bloqueado */ }
-    return memoria || vacio();
+    } catch (e) { return memoria || vacio(); /* modo privado o almacenamiento bloqueado */ }
+    if (!raw) return memoria || vacio();
+
+    var d;
+    try { d = JSON.parse(raw); } catch (e) { respaldar(raw, 'JSON inválido'); limpiar(desde); return memoria || vacio(); }
+    if (!estructuraValida(d)) { respaldar(raw, 'estructura incompleta'); limpiar(desde); return memoria || vacio(); }
+
+    if (migrar(d) || desde !== KEY) {
+      guardar(d);
+      if (desde !== KEY) limpiar(desde); // la clave antigua ya quedó copiada en la nueva
+    }
+    return d;
   }
+
+  function limpiar(clave) { try { window.localStorage.removeItem(clave); } catch (e) { /* nada */ } }
 
   function guardar(d) {
     memoria = d;
@@ -144,12 +202,13 @@
     },
 
     /* ---------- Favoritos (HU-02) ---------- */
-    favoritos: function () { return (leer().favoritos || []).slice(); },
-    esFavorito: function (servicioId) { return (leer().favoritos || []).indexOf(servicioId) >= 0; },
+    // Desde HU-05 la migración garantiza que 'favoritos' siempre existe
+    favoritos: function () { return leer().favoritos.slice(); },
+    esFavorito: function (servicioId) { return leer().favoritos.indexOf(servicioId) >= 0; },
     /** Marca o desmarca un servicio. Devuelve true si quedó como favorito. */
     toggleFavorito: function (servicioId) {
       var d = leer();
-      var favs = d.favoritos || [];
+      var favs = d.favoritos;
       var i = favs.indexOf(servicioId);
       if (i >= 0) favs.splice(i, 1); else favs.push(servicioId);
       d.favoritos = favs; guardar(d);
