@@ -34,6 +34,8 @@
         NAV.map(function (n) { return '<li><a href="' + n.href + '"' + cur(n.id) + '>' + n.txt + '</a></li>'; }).join('') +
         '</ul></nav>' +
         '<div class="header-actions">' + cuenta + '<a class="btn btn--sm" href="agendar.html">Agendar cita</a></div>' +
+        '<button class="theme-toggle" type="button" aria-label="Modo oscuro" aria-pressed="false">' +
+        I('moon', 'theme-toggle__luna') + I('sun', 'theme-toggle__sol') + '</button>' +
         '<button class="menu-toggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu-movil">' + I('menu') + '</button>' +
         '</div></header>' +
         '<div class="mobile-menu" id="menu-movil" role="dialog" aria-modal="true" aria-label="Menú">' +
@@ -61,6 +63,11 @@
         if (main) main.inert = open;
         if (open) closeBtn.focus(); else openBtn.focus();
       }
+      var temaBtn = this.querySelector('.theme-toggle');
+      if (P.tema) {
+        temaBtn.addEventListener('click', function () { P.tema.alternar(); });
+        P.tema.sincronizar();
+      } else { temaBtn.hidden = true; }
       openBtn.addEventListener('click', function () { setOpen(true); });
       closeBtn.addEventListener('click', function () { setOpen(false); });
       menu.addEventListener('click', function (e) { if (e.target.closest('nav a')) { menu.classList.remove('is-open'); document.body.classList.remove('no-scroll'); var m = document.querySelector('main'); if (m) m.inert = false; } });
