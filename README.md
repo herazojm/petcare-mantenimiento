@@ -63,6 +63,18 @@ python -m http.server 8000
 3. La rama se sube con `git push -u origin <rama>` y se abre un *pull request* hacia `main`.
 4. Al aprobarlo se fusiona con *merge commit* para que el historial muestre cada historia.
 
+## Datos guardados y migraciones (HU-05)
+
+Los datos del navegador se guardan en `localStorage` bajo la clave `petcare:datos` con un campo `esquema` (versión actual: **2**).
+
+| Versión | Cambio | Migración |
+|---|---|---|
+| 1 | Datos originales (clave `petcare:v1`, sin versión) | — |
+| 2 | Agrega `favoritos` (HU-02) y el campo `esquema` | Copia de `petcare:v1` a `petcare:datos`, crea `favoritos: []` y corrige valores faltantes |
+
+Si los datos guardados están dañados, se guarda una copia en `petcare:respaldo-<fecha>` y el sitio arranca limpio sin romperse.
+Para un cambio futuro: subir `ESQUEMA` en `assets/js/store.js` y agregar la función `MIGRACIONES[2]`.
+
 ## Privacidad
 
 No hay servidor: los datos (sesión, mascotas y citas) se guardan solo en el navegador con `localStorage`. Las contraseñas no se guardan.
