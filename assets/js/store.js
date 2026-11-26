@@ -9,7 +9,7 @@
   var KEY = 'petcare:v1';
   var memoria = null; // respaldo si localStorage no está disponible
 
-  function vacio() { return { user: null, owner: null, pets: [], citas: [], seq: 1 }; }
+  function vacio() { return { user: null, owner: null, pets: [], citas: [], favoritos: [], seq: 1 }; }
 
   function leer() {
     try {
@@ -143,6 +143,19 @@
       guardar(d);
     },
 
+    /* ---------- Favoritos (HU-02) ---------- */
+    favoritos: function () { return (leer().favoritos || []).slice(); },
+    esFavorito: function (servicioId) { return (leer().favoritos || []).indexOf(servicioId) >= 0; },
+    /** Marca o desmarca un servicio. Devuelve true si quedó como favorito. */
+    toggleFavorito: function (servicioId) {
+      var d = leer();
+      var favs = d.favoritos || [];
+      var i = favs.indexOf(servicioId);
+      if (i >= 0) favs.splice(i, 1); else favs.push(servicioId);
+      d.favoritos = favs; guardar(d);
+      return i < 0;
+    },
+
     /* La primera cita (sin contar canceladas) tiene 10 % de descuento */
     esPrimeraCita: function (ignorarId) {
       return !leer().citas.some(function (c) { return c.estado !== 'cancelada' && c.id !== ignorarId; });
@@ -188,6 +201,7 @@
         cita(-28, 'consulta-veterinaria', 'm-luna', 'laureles', '11:30', 'atendida'),
         cita(-45, 'paseos-grupales', 'm-luna', 'poblado', '08:00', 'atendida')
       ];
+      d.favoritos = ['bano-peluqueria', 'guarderia-dia'];
       guardar(d);
     },
 

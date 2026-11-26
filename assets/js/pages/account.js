@@ -42,6 +42,8 @@
         '<button class="link-btn" type="button" data-ficha="' + m.id + '">Ver ficha' + P.icon('arrow-right') + '</button></div></article>';
     }).join('') : '<div class="card empty" style="grid-column:1/-1"><span class="bubble-lg">' + P.icon('paw-print') + '</span><h3>Aún no tienes mascotas registradas</h3><p class="muted">Agrégalas para agendar más rápido.</p></div>';
 
+    renderFavoritos();
+
     // Próximas citas
     $('lista-citas').innerHTML = prox.length ? '<div class="table-wrap"><table class="table"><thead><tr><th scope="col">Fecha</th><th scope="col">Servicio</th><th scope="col">Mascota</th><th scope="col">Sede</th><th scope="col">Estado</th><th scope="col"><span class="sr-only">Acciones</span></th></tr></thead><tbody>' +
       prox.map(function (c) {
@@ -63,6 +65,16 @@
     $('p-celular').value = user.celular || '';
     $('p-email').value = user.email;
   }
+
+  // Mis favoritos (HU-02)
+  function renderFavoritos() {
+    var favs = P.store.favoritos().map(P.getServicio).filter(Boolean);
+    $('lista-favoritos').innerHTML = favs.length ? favs.map(P.serviceCard).join('') :
+      '<div class="card empty" style="grid-column:1/-1"><span class="bubble-lg">' + P.icon('heart') + '</span><h3>Aún no tienes servicios favoritos</h3>' +
+      '<p class="muted">Toca el corazón de un servicio en el catálogo para guardarlo aquí.</p>' +
+      '<a class="btn btn--sm" href="servicios.html" style="width:auto">Ver el catálogo</a></div>';
+  }
+  document.addEventListener('pc:favoritos', renderFavoritos);
 
   // Cerrar sesión
   document.querySelectorAll('[data-logout]').forEach(function (b) {
