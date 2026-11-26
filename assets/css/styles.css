@@ -728,3 +728,80 @@ dialog.modal::backdrop { background: rgba(31, 41, 51, .45); backdrop-filter: blu
 .catalog > *, .booking > *, .booking__blocks > *, .datetime > *, .auth > *, .dash > *, .detail > * { min-width: 0; }
 .auth__form, .stack { grid-template-columns: minmax(0, 1fr); }
 .btn--block { white-space: normal; text-align: center; line-height: 1.25; padding-block: 10px; }
+
+/* =========================================================
+   21. Modo oscuro (HU-01 · mantenimiento perfectivo)
+   El tema se activa con <html data-tema="oscuro">. Un script
+   en el <head> lo aplica antes de pintar para evitar parpadeos.
+   ========================================================= */
+.theme-toggle { width: 44px; height: 44px; border-radius: 12px; border: 1px solid var(--gris-borde); background: transparent; color: var(--tinta); display: inline-grid; place-items: center; flex-shrink: 0; transition: background var(--transicion), color var(--transicion); }
+.theme-toggle:hover { background: var(--fondo); color: var(--verde); }
+.theme-toggle .icon { width: 20px; height: 20px; }
+.theme-toggle .theme-toggle__sol { display: none; }
+[data-tema="oscuro"] .theme-toggle .theme-toggle__sol { display: block; }
+[data-tema="oscuro"] .theme-toggle .theme-toggle__luna { display: none; }
+@media (max-width: 1023px) {
+  .theme-toggle { margin-left: auto; }
+  .site-header .menu-toggle { margin-left: 8px; }
+}
+
+:root[data-tema="oscuro"] {
+  color-scheme: dark;
+  --verde: #2dd4bf;          /* acento para texto e íconos sobre fondo oscuro */
+  --verde-hover: #5eead4;
+  --verde-claro: #134e4a;
+  --verde-fondo: #0f2b29;
+  --verde-solido: #0f766e;   /* rellenos con texto blanco (contraste 5,47:1) */
+  --ambar-claro: #3d2c08;
+  --ambar-texto: #fcd34d;
+  --rojo: #f87171;
+  --rojo-claro: #3b1716;
+  --tinta: #e6edf3;
+  --gris-texto: #a3b0bd;
+  --gris-borde: #2f3d4b;
+  --gris-suave: #223040;
+  --fondo: #0d151c;
+  --blanco: #111a22;
+  --superficie: #16212b;
+  --sombra: 0 1px 2px rgba(0, 0, 0, .3), 0 4px 16px rgba(0, 0, 0, .25);
+  --sombra-hover: 0 2px 4px rgba(0, 0, 0, .35), 0 12px 28px rgba(0, 0, 0, .35);
+}
+
+/* Superficies que en modo claro son blancas */
+[data-tema="oscuro"] .card, [data-tema="oscuro"] .tag--outline, [data-tema="oscuro"] .menu-toggle,
+[data-tema="oscuro"] .mobile-menu, [data-tema="oscuro"] .hero__art, [data-tema="oscuro"] .hero__floating,
+[data-tema="oscuro"] .input, [data-tema="oscuro"] .select, [data-tema="oscuro"] .textarea,
+[data-tema="oscuro"] .segmented input:checked + label, [data-tema="oscuro"] .segmented button[aria-selected="true"],
+[data-tema="oscuro"] .quick-cats button, [data-tema="oscuro"] .pagination button, [data-tema="oscuro"] .accordion details,
+[data-tema="oscuro"] .stepper li .dot, [data-tema="oscuro"] .pet-option label, [data-tema="oscuro"] .add-pet-btn,
+[data-tema="oscuro"] .slots button, [data-tema="oscuro"] .day-strip button, [data-tema="oscuro"] .table-wrap,
+[data-tema="oscuro"] dialog.modal, [data-tema="oscuro"] .mobile-bar, [data-tema="oscuro"] .tabbar { background-color: var(--superficie); }
+[data-tema="oscuro"] .site-header { background: rgba(17, 26, 34, .9); }
+[data-tema="oscuro"] .select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' fill='none' stroke='%23a3b0bd' stroke-width='2' stroke-linecap='round' viewBox='0 0 24 24'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E"); }
+[data-tema="oscuro"] .service-card:hover { border-color: #4a5b6b; }
+[data-tema="oscuro"] .chip:hover { background: #1d5d58; }
+[data-tema="oscuro"] .dash__nav a:hover, [data-tema="oscuro"] .dash__nav button:hover { background: var(--gris-suave); }
+[data-tema="oscuro"] .demo-box { color: var(--ambar-texto); }
+[data-tema="oscuro"] .site-footer, [data-tema="oscuro"] .video-frame { background: #0a1015; }
+[data-tema="oscuro"] .video-placeholder { background: radial-gradient(circle at 30% 20%, #2b3a47, #0a1015); }
+[data-tema="oscuro"] .toast, [data-tema="oscuro"] .skip-link { background: #263544; color: #fff; }
+[data-tema="oscuro"] .calendar__grid button:disabled { color: #56636f; }
+
+/* Rellenos verdes con texto blanco: se mantiene el verde PetCare original */
+[data-tema="oscuro"] .btn { --btn-bg: var(--verde-solido); --btn-bd: var(--verde-solido); }
+[data-tema="oscuro"] .btn:hover { --btn-bg: #115e59; --btn-bd: #115e59; }
+[data-tema="oscuro"] .btn--secundario { --btn-bg: transparent; --btn-bd: var(--verde); }
+[data-tema="oscuro"] .btn--secundario:hover { --btn-bg: var(--verde-fondo); --btn-bd: var(--verde-hover); }
+[data-tema="oscuro"] .btn--blanco { --btn-bg: #fff; --btn-bd: #fff; --btn-fg: var(--verde-solido); }
+[data-tema="oscuro"] .btn--blanco:hover { --btn-bg: #ccede9; --btn-bd: #ccede9; --btn-fg: #115e59; }
+[data-tema="oscuro"] .btn--fantasma { --btn-bg: transparent; --btn-bd: var(--gris-borde); }
+[data-tema="oscuro"] .btn--fantasma:hover { --btn-bg: var(--fondo); --btn-bd: var(--gris-borde); }
+[data-tema="oscuro"] .btn[style*="--rojo"] { --btn-bg: #b42318 !important; --btn-bd: #b42318 !important; }
+[data-tema="oscuro"] .step__num, [data-tema="oscuro"] .cta-banner, [data-tema="oscuro"] .auth__brand,
+[data-tema="oscuro"] .next-card, [data-tema="oscuro"] .video-placeholder .play, [data-tema="oscuro"] .pet-option .check-mark,
+[data-tema="oscuro"] .quick-cats button[aria-pressed="true"], [data-tema="oscuro"] .pagination button[aria-current="page"],
+[data-tema="oscuro"] .stepper li.is-active .dot, [data-tema="oscuro"] .stepper li.is-done .dot,
+[data-tema="oscuro"] .calendar__grid button[aria-pressed="true"], [data-tema="oscuro"] .slots button[aria-pressed="true"],
+[data-tema="oscuro"] .day-strip button[aria-pressed="true"] { background-color: var(--verde-solido); border-color: var(--verde-solido); color: #fff; }
+[data-tema="oscuro"] .project-hero { background: linear-gradient(160deg, #0f766e 0%, #0b3f3b 100%); }
+[data-tema="oscuro"] .auth__brand a:not(.btn), [data-tema="oscuro"] .cta-banner a:not(.btn) { color: #fff; }
