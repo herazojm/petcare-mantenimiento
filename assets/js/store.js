@@ -202,12 +202,13 @@
     },
 
     /* ---------- Favoritos (HU-02) ---------- */
-    favoritos: function () { return (leer().favoritos || []).slice(); },
-    esFavorito: function (servicioId) { return (leer().favoritos || []).indexOf(servicioId) >= 0; },
+    // Desde HU-05 la migración garantiza que 'favoritos' siempre existe
+    favoritos: function () { return leer().favoritos.slice(); },
+    esFavorito: function (servicioId) { return leer().favoritos.indexOf(servicioId) >= 0; },
     /** Marca o desmarca un servicio. Devuelve true si quedó como favorito. */
     toggleFavorito: function (servicioId) {
       var d = leer();
-      var favs = d.favoritos || [];
+      var favs = d.favoritos;
       var i = favs.indexOf(servicioId);
       if (i >= 0) favs.splice(i, 1); else favs.push(servicioId);
       d.favoritos = favs; guardar(d);
