@@ -805,3 +805,23 @@ dialog.modal::backdrop { background: rgba(31, 41, 51, .45); backdrop-filter: blu
 [data-tema="oscuro"] .day-strip button[aria-pressed="true"] { background-color: var(--verde-solido); border-color: var(--verde-solido); color: #fff; }
 [data-tema="oscuro"] .project-hero { background: linear-gradient(160deg, #0f766e 0%, #0b3f3b 100%); }
 [data-tema="oscuro"] .auth__brand a:not(.btn), [data-tema="oscuro"] .cta-banner a:not(.btn) { color: #fff; }
+
+/* =========================================================
+   22. Favoritos (HU-02 · mantenimiento perfectivo)
+   ========================================================= */
+.fav-btn {
+  position: absolute; top: 10px; right: 10px; z-index: 2;
+  width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--gris-borde);
+  background: var(--blanco); color: var(--gris-texto); display: grid; place-items: center;
+  box-shadow: var(--sombra); transition: transform var(--transicion), color var(--transicion);
+}
+.fav-btn .icon { width: 20px; height: 20px; }
+.fav-btn:hover { color: #e11d48; transform: scale(1.08); }
+.fav-btn[aria-pressed="true"] { color: #e11d48; }
+.fav-btn[aria-pressed="true"] .icon { fill: currentColor; }
+[data-tema="oscuro"] .fav-btn { background: var(--superficie); }
+[data-tema="oscuro"] .fav-btn:hover, [data-tema="oscuro"] .fav-btn[aria-pressed="true"] { color: #fb7185; }
+@media (max-width: 640px) {
+  .fav-btn { top: 8px; right: 8px; width: 36px; height: 36px; }
+  .catalog-results .service-card__body { padding-right: 40px; }
+}

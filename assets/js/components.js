@@ -106,9 +106,40 @@
   customElements.define('pc-header', PcHeader);
   customElements.define('pc-footer', PcFooter);
 
+  /* ---------- Favoritos (HU-02) ---------- */
+  P.ICONS.heart = '<path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />';
+
+  P.favButton = function (s) {
+    var fav = P.store.user() ? P.store.esFavorito(s.id) : false;
+    return '<button class="fav-btn" type="button" data-fav="' + s.id + '" aria-pressed="' + fav + '"' +
+      ' aria-label="Guardar ' + P.esc(s.nombre) + ' en favoritos" title="' + (fav ? 'Quitar de favoritos' : 'Guardar en favoritos') + '">' +
+      I('heart') + '</button>';
+  };
+
+  // Un solo manejador para todos los corazones del sitio
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-fav]');
+    if (!b) return;
+    e.preventDefault();
+    var id = b.getAttribute('data-fav');
+    if (!P.store.user()) {
+      P.toast('Ingresa a tu cuenta para guardar favoritos.', 'heart');
+      setTimeout(function () { location.href = 'ingresar.html?next=' + encodeURIComponent(location.pathname.split('/').pop() || 'servicios.html'); }, 1200);
+      return;
+    }
+    var s = P.getServicio(id);
+    var ahora = P.store.toggleFavorito(id);
+    document.querySelectorAll('[data-fav="' + id + '"]').forEach(function (x) {
+      x.setAttribute('aria-pressed', String(ahora));
+      x.setAttribute('title', ahora ? 'Quitar de favoritos' : 'Guardar en favoritos');
+    });
+    P.toast((s ? s.nombre : 'Servicio') + (ahora ? ' se guardó en tus favoritos.' : ' se quitó de tus favoritos.'), 'heart');
+    document.dispatchEvent(new CustomEvent('pc:favoritos', { detail: { id: id, favorito: ahora } }));
+  });
+
   /* ---------- Tarjeta de servicio (componente de la Act. 2) ---------- */
   P.serviceCard = function (s) {
-    return '<article class="card service-card">' +
+    return '<article class="card service-card">' + P.favButton(s) +
       '<div class="service-card__media">' + P.art(s.art) + '</div>' +
       '<div class="service-card__body">' +
       '<span><span class="tag">' + P.CATEGORIAS[s.categoria] + '</span></span>' +
