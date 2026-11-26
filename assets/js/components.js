@@ -192,8 +192,47 @@
   P.validEmail = function (v) { return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v); };
   P.validCelular = function (v) { return /^3\d{9}$/.test(v.replace(/[\s-]/g, '')); };
 
+  /* ---------- Botón flotante de WhatsApp por sede (HU-04 · adaptativo) ---------- */
+  P.waLink = function (sedeId) {
+    var sede = P.SEDES[sedeId];
+    var nums = (window.PC_CONFIG && window.PC_CONFIG.whatsapp) || {};
+    var num = String(nums[sedeId] || '').replace(/\D/g, '');
+    var txt = 'Hola, PetCare ' + sede.nombre + '. Quisiera información sobre sus servicios para mi mascota.';
+    return 'https://wa.me/' + num + '?text=' + encodeURIComponent(txt);
+  };
+
+  P.whatsappWidget = function () {
+    if (document.querySelector('.wa') || !P.SEDES) return;
+    var box = document.createElement('div');
+    box.className = 'wa';
+    box.innerHTML =
+      '<div class="wa__panel" id="wa-panel" role="dialog" aria-labelledby="wa-titulo" hidden>' +
+      '<div class="wa__head"><strong id="wa-titulo">¿Con qué sede quieres hablar?</strong>' +
+      '<button class="icon-btn" type="button" data-wa-cerrar aria-label="Cerrar">' + I('x') + '</button></div>' +
+      '<p class="wa__hint">Te respondemos por WhatsApp en horario de atención.</p><ul>' +
+      Object.keys(P.SEDES).map(function (k) {
+        var s = P.SEDES[k];
+        return '<li><a href="' + P.waLink(k) + '" target="_blank" rel="noopener">' + I('map-pin') +
+          '<span><strong>' + s.nombre + '</strong><small>' + s.horario + '</small></span>' + I('arrow-right') + '</a></li>';
+      }).join('') + '</ul></div>' +
+      '<button class="wa__fab" type="button" aria-expanded="false" aria-controls="wa-panel" aria-label="Escríbenos por WhatsApp">' + I('message-circle') + '</button>';
+    document.body.appendChild(box);
+
+    var panel = box.querySelector('.wa__panel'), fab = box.querySelector('.wa__fab');
+    function abrir(si) {
+      panel.hidden = !si;
+      fab.setAttribute('aria-expanded', String(si));
+      if (si) panel.querySelector('a').focus();
+    }
+    fab.addEventListener('click', function () { abrir(panel.hidden); });
+    box.querySelector('[data-wa-cerrar]').addEventListener('click', function () { abrir(false); fab.focus(); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !panel.hidden) { abrir(false); fab.focus(); } });
+    document.addEventListener('click', function (e) { if (!panel.hidden && !box.contains(e.target)) abrir(false); });
+  };
+
   document.addEventListener('DOMContentLoaded', function () {
     P.hydrateIcons();
     P.reveal();
+    P.whatsappWidget();
   });
 })();
