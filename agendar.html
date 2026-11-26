@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es-CO">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Agenda tu cita · PetCare</title>
+  <meta name="description" content="Agenda en tres pasos: elige tu mascota, la fecha y la hora, y confirma. Recordatorio por WhatsApp incluido.">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#0F766E">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="assets/fonts/nunito-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <script src="assets/js/icons.js" defer></script>
+  <script src="assets/js/illustrations.js" defer></script>
+  <script src="assets/js/data.js" defer></script>
+  <script src="assets/js/store.js" defer></script>
+  <script src="assets/js/components.js" defer></script>
+  <script src="assets/js/pages/booking.js" defer></script>
+</head>
+<body class="has-mobile-bar">
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <pc-header></pc-header>
+
+  <main id="contenido" class="container" style="padding-top:28px;padding-bottom:80px">
+    <a class="back-link" id="volver" href="servicios.html"><i data-icon="chevron-left"></i><span>Volver a servicios</span></a>
+    <h1 id="titulo" style="margin-top:14px;font-size:clamp(2rem,1.4rem + 2vw,2.75rem)">Agenda tu cita</h1>
+
+    <!-- Indicador de pasos (escritorio) y barra de progreso (móvil) -->
+    <ol class="stepper" id="stepper" aria-label="Progreso del agendamiento">
+      <li data-step="1"><span class="dot">1</span>Mascota</li><li class="line" aria-hidden="true"></li>
+      <li data-step="2"><span class="dot">2</span>Fecha y hora</li><li class="line" aria-hidden="true"></li>
+      <li data-step="3"><span class="dot">3</span>Confirmar</li>
+    </ol>
+    <div class="progress-mobile" aria-hidden="true"><span id="progreso" style="width:33%"></span></div>
+    <p class="hint mt-8" id="paso-texto" aria-live="polite" style="min-height:1.5em">Paso 1 de 3 · Mascota y servicio</p>
+
+    <form class="booking" id="form" novalidate>
+      <div class="booking__blocks">
+        <!-- Paso 1 -->
+        <section class="card block" aria-labelledby="b1">
+          <h2 id="b1">1. ¿Para quién es la cita?</h2>
+          <div class="pet-options" id="mascotas" role="radiogroup" aria-label="Mascota"></div>
+          <div class="new-pet" id="nueva-mascota">
+            <strong>Nueva mascota</strong>
+            <div class="form-grid">
+              <div class="field"><label for="np-nombre">Nombre</label><input class="input" id="np-nombre" maxlength="30" placeholder="Ej.: Toby"></div>
+              <div class="field"><label for="np-especie">Especie</label>
+                <select class="select" id="np-especie"><option value="perro">Perro</option><option value="gato">Gato</option><option value="otra">Otra</option></select></div>
+              <div class="field"><label for="np-tamano">Tamaño</label>
+                <select class="select" id="np-tamano"><option value="pequeno">Pequeño (hasta 10 kg)</option><option value="mediano" selected>Mediano (10–25 kg)</option><option value="grande">Grande (más de 25 kg)</option></select></div>
+              <div class="field"><label for="np-raza">Raza (opcional)</label><input class="input" id="np-raza" maxlength="40" placeholder="Ej.: Beagle"></div>
+            </div>
+            <div style="display:flex;gap:10px;flex-wrap:wrap">
+              <button class="btn btn--sm" type="button" id="np-guardar" style="width:auto">Guardar mascota</button>
+              <button class="btn btn--fantasma btn--sm" type="button" id="np-cancelar" style="width:auto">Cancelar</button>
+            </div>
+          </div>
+          <script>/* Oculta el formulario antes de pintar si ya hay mascotas guardadas (evita saltos de diseño) */
+            try { var d = JSON.parse(localStorage.getItem('petcare:v1')); if (d && d.pets && d.pets.length) document.getElementById('nueva-mascota').hidden = true; } catch (e) {}</script>
+          <div class="block-sub">
+            <div class="field"><label for="servicio">Servicio</label><select class="select" id="servicio"></select></div>
+            <div class="field"><label for="sede">Sede</label><select class="select" id="sede"></select></div>
+          </div>
+          <p class="form-alert mt-16" id="aviso-especie" role="alert"></p>
+        </section>
+
+        <!-- Paso 2 -->
+        <section class="card block" aria-labelledby="b2">
+          <h2 id="b2">2. Elige fecha y hora</h2>
+          <div class="datetime">
+            <div class="calendar" id="calendario"></div>
+            <div>
+              <div class="day-strip" id="tira-dias" aria-label="Días disponibles"></div>
+              <p class="slots__title" id="slots-titulo">Horarios disponibles</p>
+              <div class="slots" id="horarios" role="group" aria-labelledby="slots-titulo"></div>
+              <p class="hint mt-16"><i data-icon="info" style="display:inline;width:14px;vertical-align:-2px"></i> Los horarios en gris ya están ocupados.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Paso 3 -->
+        <section class="card block" aria-labelledby="b3">
+          <h2 id="b3">3. Datos de contacto</h2>
+          <div class="form-grid">
+            <div class="field"><label for="c-nombre">Nombre completo</label><input class="input" id="c-nombre" autocomplete="name" placeholder="Laura Martínez" required></div>
+            <div class="field"><label for="c-celular">Celular (WhatsApp)</label><input class="input" id="c-celular" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="300 000 0000" required></div>
+            <div class="field full"><label for="c-email">Correo electrónico</label><input class="input" id="c-email" type="email" autocomplete="email" placeholder="tucorreo@ejemplo.com" required></div>
+            <div class="field full"><label for="c-notas">Notas para el profesional (opcional)</label><textarea class="textarea" id="c-notas" maxlength="300" placeholder="Ej.: es nerviosa con el secador"></textarea></div>
+            <label class="check full"><input type="checkbox" id="c-whatsapp" checked><span>Quiero recibir un recordatorio por WhatsApp</span></label>
+          </div>
+        </section>
+      </div>
+
+      <!-- Resumen siempre visible (derecha en escritorio) -->
+      <aside class="summary" aria-labelledby="resumen-title">
+        <h2 id="resumen-title">Resumen</h2>
+        <div class="summary__service" id="r-servicio"></div>
+        <dl class="kv" id="r-datos"></dl>
+        <dl class="kv" id="r-precios" style="padding-top:14px;border-top:1px solid var(--gris-borde)"></dl>
+        <div class="summary__total"><span style="font-weight:700">Total</span><strong id="r-total">$0</strong></div>
+        <p class="form-alert" id="errores" role="alert" tabindex="-1"></p>
+        <button class="btn btn--block btn--confirm" type="submit" id="confirmar">Confirmar cita</button>
+        <p class="secure-note"><i data-icon="lock"></i>Pagas en la sede. Cancela gratis hasta 24 h antes.</p>
+      </aside>
+
+      <!-- Barra fija inferior (móvil) -->
+      <div class="mobile-bar">
+        <div><small>Total</small><strong id="m-total">$0</strong></div>
+        <button class="btn" type="submit">Confirmar</button>
+      </div>
+    </form>
+  </main>
+
+  <pc-footer></pc-footer>
+</body>
+</html>

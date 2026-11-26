@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es-CO">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PetCare · Cuidamos a tu mascota como parte de tu familia</title>
+  <meta name="description" content="Agenda en línea veterinaria, baño y peluquería, paseos, guardería y adiestramiento para tu perro o gato en Medellín. Tres sedes: El Poblado, Laureles y Envigado.">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#0F766E">
+  <meta property="og:title" content="PetCare · Servicios para mascotas en Medellín">
+  <meta property="og:description" content="Encuentra un servicio, mira su precio y agenda tu cita en menos de tres minutos.">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="assets/fonts/nunito-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <script src="assets/js/icons.js" defer></script>
+  <script src="assets/js/illustrations.js" defer></script>
+  <script src="assets/js/data.js" defer></script>
+  <script src="assets/js/store.js" defer></script>
+  <script src="assets/js/components.js" defer></script>
+  <script src="assets/js/pages/home.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <pc-header active="inicio"></pc-header>
+
+  <main id="contenido">
+    <!-- HERO: mensaje de valor + llamados a la acción (D1 / M1) -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="container hero__grid">
+        <div class="hero__copy">
+          <span class="tag tag--ambar"><i data-icon="map-pin"></i>Medellín · Atención los 7 días</span>
+          <h1 id="hero-title">Cuidamos a tu mascota como parte de tu familia</h1>
+          <p class="lead">Agenda veterinaria, baño, paseos y guardería en minutos. Profesionales certificados y recordatorios automáticos para que nunca se te pase una cita.</p>
+          <div class="hero__ctas">
+            <a class="btn" href="agendar.html"><i data-icon="calendar-plus"></i>Agendar cita</a>
+            <a class="btn btn--secundario" href="servicios.html">Ver servicios</a>
+          </div>
+          <ul class="hero__trust" aria-label="Por qué confiar en PetCare">
+            <li><i data-icon="star" class="star"></i><strong>4,9 de 5</strong></li>
+            <li><i data-icon="paw-print"></i>+2.000 mascotas atendidas</li>
+            <li><i data-icon="map-pin"></i>3 sedes en Medellín</li>
+          </ul>
+        </div>
+        <div class="hero__art" id="hero-art">
+          <div class="hero__floating hero__floating--a"><span class="bubble"><i data-icon="calendar"></i></span><span><strong>Cita en 3 pasos</strong>sin llamadas</span></div>
+          <div class="hero__floating hero__floating--b"><span class="bubble"><i data-icon="bell"></i></span><span><strong>Recordatorio</strong>por WhatsApp</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICIOS DESTACADOS -->
+    <section class="section" aria-labelledby="servicios-title">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="eyebrow">Servicios</span>
+          <h2 id="servicios-title">Todo lo que tu mascota necesita</h2>
+          <p>Elige un servicio, mira precios y agenda en línea sin llamadas.</p>
+        </div>
+        <div class="grid grid--4 home-services" id="destacados"></div>
+        <p class="center mt-40"><a class="btn btn--secundario" href="servicios.html">Ver todos los servicios<i data-icon="arrow-right"></i></a></p>
+      </div>
+    </section>
+
+    <!-- CÓMO FUNCIONA -->
+    <section class="section section--alt" id="como-funciona" aria-labelledby="como-title">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="eyebrow">Cómo funciona</span>
+          <h2 id="como-title">Agenda en 3 pasos</h2>
+        </div>
+        <ol class="grid grid--3 steps">
+          <li class="card step reveal"><span class="step__num">1</span><h3>Elige el servicio</h3><p>Filtra por tipo de mascota, categoría, precio y sede. Cada servicio muestra qué incluye y cuánto dura.</p></li>
+          <li class="card step reveal"><span class="step__num">2</span><h3>Escoge fecha y hora</h3><p>Mira la disponibilidad real de cada sede y elige el horario que te sirva, incluso los domingos.</p></li>
+          <li class="card step reveal"><span class="step__num">3</span><h3>Confirma y listo</h3><p>Recibes la confirmación al instante y un recordatorio por WhatsApp un día antes de la cita.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- TESTIMONIOS -->
+    <section class="section" aria-labelledby="testimonios-title">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="eyebrow">Testimonios</span>
+          <h2 id="testimonios-title">Lo que dicen las familias</h2>
+        </div>
+        <div class="grid grid--3">
+          <figure class="card testimonial reveal">
+            <div class="stars" role="img" aria-label="5 de 5 estrellas"><i data-icon="star" class="star"></i><i data-icon="star" class="star"></i><i data-icon="star" class="star"></i><i data-icon="star" class="star"></i><i data-icon="star" class="star"></i></div>
+            <blockquote>«Agendé el baño de Luna en dos minutos y me llegó el recordatorio. Súper práctico.»</blockquote>
+            <figcaption><span class="avatar">LM</span><span><strong>Laura M.</strong>Dueña de Luna · Golden</span></figcaption>
+          </figure>
+          <figure class="card testimonial reveal">
+            <div class="stars" role="img" aria-label="5 de 5 estrellas"><i data-icon="star" class="star"></i><i data-icon="star" class="star"></i><i data-icon="star" class="star"></i><i data-icon="star" class="star"></i><i data-icon="star" class="star"></i></div>
+            <blockquote>«El veterinario fue muy claro y en mi cuenta quedó la ficha de vacunas de Michi.»</blockquote>
+            <figcaption><span class="avatar">AP</span><span><strong>Andrés P.</strong>Dueño de Michi · Gato criollo</span></figcaption>
+          </figure>
+          <figure class="card testimonial reveal">
+            <div class="stars" role="img" aria-label="5 de 5 estrellas"><i data-icon="star" class="star"></i><i data-icon="star" class="star"></i><i data-icon="star" class="star"></i><i data-icon="star" class="star"></i><i data-icon="star" class="star"></i></div>
+            <blockquote>«Los paseos con GPS me dan tranquilidad cuando estoy trabajando.»</blockquote>
+            <figcaption><span class="avatar">SR</span><span><strong>Sofía R.</strong>Dueña de Toby · Beagle</span></figcaption>
+          </figure>
+        </div>
+        <p class="note-small">Testimonios ilustrativos: PetCare es una marca ficticia creada para un proyecto académico.</p>
+      </div>
+    </section>
+
+    <!-- BANNER -->
+    <section class="container" aria-label="Promoción primera cita">
+      <div class="cta-banner reveal">
+        <div>
+          <h2>¿Lista la próxima cita de tu mascota?</h2>
+          <p>Reserva hoy y recibe 10 % de descuento en tu primer servicio.</p>
+        </div>
+        <a class="btn btn--blanco" href="agendar.html">Agendar ahora</a>
+      </div>
+    </section>
+
+    <!-- SEDES Y CONTACTO -->
+    <section class="section" id="contacto" aria-labelledby="contacto-title">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="eyebrow">Contacto</span>
+          <h2 id="contacto-title">Tres sedes en el Valle de Aburrá</h2>
+          <p>Ven a la que te quede más cerca o agenda en línea y escoge la sede en el formulario.</p>
+        </div>
+        <div class="grid grid--3 sedes" id="sedes"></div>
+      </div>
+    </section>
+  </main>
+
+  <pc-footer></pc-footer>
+  <noscript><p class="container mt-16">PetCare necesita JavaScript activado para agendar citas y mostrar el catálogo.</p></noscript>
+</body>
+</html>

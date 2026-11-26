@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es-CO">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Servicios para tu mascota · PetCare</title>
+  <meta name="description" content="Catálogo de servicios PetCare: veterinaria, baño y peluquería, paseos, guardería y adiestramiento. Filtra por mascota, categoría, precio y sede.">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#0F766E">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="assets/fonts/nunito-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <script src="assets/js/icons.js" defer></script>
+  <script src="assets/js/illustrations.js" defer></script>
+  <script src="assets/js/data.js" defer></script>
+  <script src="assets/js/store.js" defer></script>
+  <script src="assets/js/components.js" defer></script>
+  <script src="assets/js/pages/catalog.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <pc-header active="servicios"></pc-header>
+
+  <main id="contenido">
+    <!-- Encabezado del catálogo (D2 / M3) -->
+    <section class="page-head">
+      <div class="container">
+        <nav class="breadcrumb" aria-label="Migas de pan"><ol><li><a href="index.html">Inicio</a></li><li aria-current="page">Servicios</li></ol></nav>
+        <h1>Servicios para tu mascota</h1>
+        <form class="catalog-tools" role="search" onsubmit="return false">
+          <label class="sr-only" for="buscar">Buscar servicio</label>
+          <div class="input-icon"><i data-icon="search"></i><input class="input" type="search" id="buscar" placeholder="Buscar servicio, p. ej. vacunación" autocomplete="off"></div>
+          <label class="sr-only" for="orden">Ordenar resultados</label>
+          <select class="select" id="orden">
+            <option value="recomendados">Ordenar: Recomendados</option>
+            <option value="precio-asc">Precio: menor a mayor</option>
+            <option value="precio-desc">Precio: mayor a menor</option>
+            <option value="rating">Mejor calificados</option>
+            <option value="nombre">Nombre (A–Z)</option>
+          </select>
+        </form>
+      </div>
+    </section>
+
+    <section class="section" style="padding-top:40px" aria-label="Catálogo de servicios">
+      <div class="container catalog">
+        <!-- Barra lateral de filtros (en móvil se abre como panel) -->
+        <aside class="card filters" id="filtros" aria-label="Filtros">
+          <div class="filters__head">
+            <h2>Filtros</h2>
+            <span style="display:flex;gap:8px;align-items:center">
+              <button class="link-btn" type="button" id="limpiar">Limpiar</button>
+              <button class="icon-btn filters__close" type="button" id="cerrar-filtros" aria-label="Cerrar filtros"><i data-icon="x"></i></button>
+            </span>
+          </div>
+          <fieldset><legend>Tipo de mascota</legend><div id="f-especie"></div></fieldset>
+          <fieldset><legend>Categoría</legend><div id="f-categoria"></div></fieldset>
+          <fieldset>
+            <legend>Precio máximo</legend>
+            <div class="price-range">
+              <label class="sr-only" for="precio">Precio máximo</label>
+              <input type="range" id="precio" min="15000" max="75000" step="5000" value="75000">
+              <div class="flex-between hint"><span>$15.000</span><output for="precio" id="precio-out">$75.000</output></div>
+            </div>
+          </fieldset>
+          <fieldset><legend>Sede</legend><div id="f-sede"></div></fieldset>
+          <button class="btn btn--block filters__apply" type="button" id="aplicar">Ver resultados</button>
+        </aside>
+
+        <div class="catalog-results">
+          <h2 class="sr-only">Resultados</h2>
+          <div class="quick-cats" id="quick-cats" aria-label="Categorías rápidas"></div>
+          <div class="results-bar">
+            <strong id="conteo" aria-live="polite"></strong>
+            <div class="chips" id="chips"></div>
+            <button class="btn btn--fantasma btn--sm filters-open" type="button" id="abrir-filtros" aria-controls="filtros" aria-expanded="false" style="width:auto"><i data-icon="sliders-horizontal"></i>Filtros <span id="n-filtros"></span></button>
+          </div>
+          <div class="grid grid--3" id="resultados"></div>
+          <nav class="pagination" id="paginacion" aria-label="Paginación"></nav>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <pc-footer></pc-footer>
+</body>
+</html>

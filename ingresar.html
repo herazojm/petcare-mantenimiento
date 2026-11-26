@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es-CO">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ingresar · PetCare</title>
+  <meta name="description" content="Ingresa o crea tu cuenta PetCare para ver las citas, vacunas y el historial de tus mascotas.">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#0F766E">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="assets/fonts/nunito-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <script src="assets/js/icons.js" defer></script>
+  <script src="assets/js/illustrations.js" defer></script>
+  <script src="assets/js/data.js" defer></script>
+  <script src="assets/js/store.js" defer></script>
+  <script src="assets/js/components.js" defer></script>
+  <script src="assets/js/pages/login.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al formulario</a>
+  <div class="auth">
+    <!-- Panel de marca (D6) -->
+    <aside class="auth__brand">
+      <a class="logo" href="index.html"><i data-icon="paw-print"></i>PetCare</a>
+      <div class="auth__art" id="auth-art"></div>
+      <div>
+        <h2>Todo el historial de tu mascota en un solo lugar.</h2>
+        <p>Citas, vacunas y recordatorios siempre a la mano.</p>
+      </div>
+    </aside>
+
+    <main class="auth__panel" id="contenido">
+      <div class="auth__form">
+        <h1 style="font-size:clamp(2rem,1.6rem + 1.2vw,2.5rem)" id="auth-title">Bienvenido de nuevo</h1>
+        <p id="auth-sub">Ingresa para agendar y ver las citas de tus mascotas.</p>
+
+        <div class="segmented" role="tablist" aria-label="Tipo de acceso">
+          <button type="button" role="tab" id="tab-ingresar" aria-selected="true" aria-controls="form-ingresar">Ingresar</button>
+          <button type="button" role="tab" id="tab-crear" aria-selected="false" aria-controls="form-crear" tabindex="-1">Crear cuenta</button>
+        </div>
+
+        <form id="form-ingresar" role="tabpanel" aria-labelledby="tab-ingresar" class="stack" novalidate>
+          <div class="field"><label for="in-email">Correo electrónico</label><input class="input" id="in-email" type="email" autocomplete="email" placeholder="tucorreo@ejemplo.com" required></div>
+          <div class="field"><label for="in-pass">Contraseña</label><input class="input" id="in-pass" type="password" autocomplete="current-password" placeholder="Mínimo 6 caracteres" required></div>
+          <div class="auth__row">
+            <label class="check"><input type="checkbox" id="in-recordar"><span>Recordarme</span></label>
+            <button class="link-btn" type="button" id="olvide">¿Olvidaste tu contraseña?</button>
+          </div>
+          <button class="btn btn--block" type="submit">Ingresar</button>
+        </form>
+
+        <form id="form-crear" role="tabpanel" aria-labelledby="tab-crear" class="stack" novalidate hidden>
+          <div class="field"><label for="cr-nombre">Nombre completo</label><input class="input" id="cr-nombre" autocomplete="name" placeholder="Laura Martínez" required></div>
+          <div class="field"><label for="cr-email">Correo electrónico</label><input class="input" id="cr-email" type="email" autocomplete="email" placeholder="tucorreo@ejemplo.com" required></div>
+          <div class="field"><label for="cr-pass">Contraseña</label><input class="input" id="cr-pass" type="password" autocomplete="new-password" placeholder="Mínimo 6 caracteres" required></div>
+          <label class="check"><input type="checkbox" id="cr-terminos"><span>Acepto los <a href="proyecto.html#aviso">términos y el tratamiento de datos</a></span></label>
+          <button class="btn btn--block" type="submit">Crear cuenta</button>
+        </form>
+
+        <div class="divider">o</div>
+        <button class="btn btn--fantasma btn--block" type="button" id="demo"><span class="google-g" aria-hidden="true">G</span>Continuar con Google</button>
+        <button class="btn btn--secundario btn--block" type="button" id="demo2"><i data-icon="eye"></i>Explorar con la cuenta de demostración</button>
+
+        <p class="demo-box"><i data-icon="info"></i><span><strong>Proyecto académico.</strong> No uses una contraseña real: esta versión no tiene servidor, la contraseña no se guarda y tus datos solo quedan en este navegador.</span></p>
+        <a class="back-link" href="index.html"><i data-icon="chevron-left"></i>Volver al inicio</a>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

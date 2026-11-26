@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es-CO">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mi cuenta · PetCare</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#0F766E">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="assets/fonts/nunito-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <script src="assets/js/icons.js" defer></script>
+  <script src="assets/js/illustrations.js" defer></script>
+  <script src="assets/js/data.js" defer></script>
+  <script src="assets/js/store.js" defer></script>
+  <script src="assets/js/components.js" defer></script>
+  <script src="assets/js/pages/account.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <pc-header active="cuenta"></pc-header>
+
+  <div class="dash">
+    <!-- Menú lateral (en móvil se reemplaza por la barra de pestañas) -->
+    <aside class="dash__side" aria-label="Menú de la cuenta">
+      <div class="dash__user"><span class="avatar" id="u-avatar"></span><span><strong id="u-nombre"></strong><small id="u-email"></small></span></div>
+      <nav class="dash__nav" id="dash-nav">
+        <a href="#resumen"><i data-icon="house"></i>Resumen</a>
+        <a href="#mascotas"><i data-icon="paw-print"></i>Mis mascotas</a>
+        <a href="#citas"><i data-icon="calendar"></i>Mis citas</a>
+        <a href="#perfil"><i data-icon="user"></i>Mi perfil</a>
+        <hr>
+        <button type="button" data-logout><i data-icon="log-out"></i>Cerrar sesión</button>
+      </nav>
+    </aside>
+
+    <main class="dash__main" id="contenido">
+      <section class="dash-section" id="resumen" aria-labelledby="saludo">
+        <div class="dash__head">
+          <div><h1 id="saludo">Hola</h1><p class="muted">Así va el cuidado de tus mascotas.</p></div>
+          <a class="btn" href="agendar.html"><i data-icon="plus"></i>Agendar nueva cita</a>
+        </div>
+        <a class="next-card" id="next-card" href="#citas"></a>
+        <div class="stats" id="stats"></div>
+      </section>
+
+      <section class="dash-section" id="mascotas" aria-labelledby="t-mascotas">
+        <div class="dash-section__head"><h2 id="t-mascotas">Mis mascotas</h2><button class="link-btn" type="button" id="btn-add-pet"><i data-icon="plus"></i>Agregar mascota</button></div>
+        <div class="grid grid--2" id="lista-mascotas"></div>
+      </section>
+
+      <section class="dash-section" id="citas" aria-labelledby="t-citas">
+        <div class="dash-section__head"><h2 id="t-citas">Próximas citas</h2></div>
+        <div id="lista-citas"></div>
+        <h3 class="mt-16">Historial</h3>
+        <ul class="history" id="historial"></ul>
+      </section>
+
+      <section class="dash-section" id="perfil" aria-labelledby="t-perfil">
+        <div class="dash-section__head"><h2 id="t-perfil">Mi perfil</h2></div>
+        <form class="card block form-grid" id="form-perfil" novalidate>
+          <div class="field"><label for="p-nombre">Nombre completo</label><input class="input" id="p-nombre" autocomplete="name"></div>
+          <div class="field"><label for="p-celular">Celular (WhatsApp)</label><input class="input" id="p-celular" type="tel" autocomplete="tel-national" placeholder="300 000 0000"></div>
+          <div class="field full"><label for="p-email">Correo electrónico</label><input class="input" id="p-email" type="email" readonly aria-describedby="p-email-hint"><span class="hint" id="p-email-hint">El correo es tu usuario y no se puede cambiar.</span></div>
+          <div class="full flex-between">
+            <button class="btn" type="submit" style="width:auto">Guardar cambios</button>
+            <button class="link-btn link-btn--danger" type="button" id="borrar-datos"><i data-icon="trash-2"></i>Borrar mis datos de este navegador</button>
+          </div>
+        </form>
+      </section>
+    </main>
+  </div>
+
+  <!-- Barra de pestañas (móvil, M5) -->
+  <nav class="tabbar" aria-label="Accesos rápidos">
+    <a href="index.html"><i data-icon="house"></i>Inicio</a>
+    <a href="#citas"><i data-icon="calendar"></i>Citas</a>
+    <a href="agendar.html"><i data-icon="plus"></i>Agendar</a>
+    <a href="#resumen" aria-current="page"><i data-icon="circle-user"></i>Mi cuenta</a>
+  </nav>
+
+  <!-- Diálogo: agregar mascota -->
+  <dialog class="modal" id="dlg-mascota" aria-labelledby="dlg-mascota-t">
+    <form method="dialog" id="form-mascota" novalidate>
+      <div class="modal__head"><h2 id="dlg-mascota-t">Agregar mascota</h2><button class="icon-btn" value="cancel" formnovalidate aria-label="Cerrar"><i data-icon="x"></i></button></div>
+      <div class="modal__body form-grid">
+        <div class="field"><label for="m-nombre">Nombre</label><input class="input" id="m-nombre" maxlength="30" required></div>
+        <div class="field"><label for="m-especie">Especie</label><select class="select" id="m-especie"><option value="perro">Perro</option><option value="gato">Gato</option><option value="otra">Otra</option></select></div>
+        <div class="field"><label for="m-raza">Raza</label><input class="input" id="m-raza" maxlength="40" placeholder="Opcional"></div>
+        <div class="field"><label for="m-tamano">Tamaño</label><select class="select" id="m-tamano"><option value="pequeno">Pequeño</option><option value="mediano" selected>Mediano</option><option value="grande">Grande</option></select></div>
+        <div class="field"><label for="m-edad">Edad</label><input class="input" id="m-edad" maxlength="20" placeholder="Ej.: 2 años"></div>
+        <div class="field"><label for="m-peso">Peso</label><input class="input" id="m-peso" maxlength="10" placeholder="Ej.: 12 kg"></div>
+        <label class="check full"><input type="checkbox" id="m-vacunas"><span>Tiene las vacunas al día</span></label>
+      </div>
+      <div class="modal__foot"><button class="btn btn--fantasma" value="cancel" formnovalidate style="width:auto">Cancelar</button><button class="btn" value="ok" id="m-guardar" style="width:auto">Guardar mascota</button></div>
+    </form>
+  </dialog>
+
+  <!-- Diálogo: ficha médica -->
+  <dialog class="modal" id="dlg-ficha" aria-labelledby="dlg-ficha-t">
+    <div class="modal__head"><h2 id="dlg-ficha-t">Ficha</h2><button class="icon-btn" type="button" data-close aria-label="Cerrar"><i data-icon="x"></i></button></div>
+    <div class="modal__body" id="ficha-body"></div>
+  </dialog>
+
+  <!-- Diálogo: cancelar cita -->
+  <dialog class="modal" id="dlg-cancelar" aria-labelledby="dlg-cancelar-t">
+    <form method="dialog">
+      <div class="modal__head"><h2 id="dlg-cancelar-t">¿Cancelar esta cita?</h2></div>
+      <div class="modal__body"><p id="cancelar-txt" class="muted"></p></div>
+      <div class="modal__foot"><button class="btn btn--fantasma" value="no" style="width:auto">No, mantenerla</button><button class="btn" value="si" style="width:auto;--btn-bg:var(--rojo);--btn-bd:var(--rojo)">Sí, cancelar</button></div>
+    </form>
+  </dialog>
+</body>
+</html>

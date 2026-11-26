@@ -1,0 +1,29 @@
+# ---------------------------------------------------------
+# Archivos que Git NO debe versionar
+# ---------------------------------------------------------
+
+# Caché y credenciales del despliegue (Wrangler / Cloudflare)
+.wrangler/
+.dev.vars
+.env
+.env.*
+
+# Dependencias (por si se agregan herramientas con npm)
+node_modules/
+
+# Archivos del sistema operativo
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# Configuración local de editores
+.vscode/
+.idea/
+*.swp
+
+# Registros y archivos temporales
+*.log
+*.tmp
+
+# Exportaciones de prueba generadas al usar el sitio (HU-03)
+petcare-historial-*.csv

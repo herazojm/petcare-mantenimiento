@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es-CO">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>El proyecto y video de demostración · PetCare</title>
+  <meta name="description" content="Cómo se construyó PetCare: del wireframe de Figma a un sitio responsivo con HTML5, CSS3 y JavaScript publicado en GitHub Pages. Incluye el video de demostración.">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#0F766E">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="assets/fonts/nunito-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <script src="assets/js/config.js" defer></script>
+  <script src="assets/js/icons.js" defer></script>
+  <script src="assets/js/illustrations.js" defer></script>
+  <script src="assets/js/data.js" defer></script>
+  <script src="assets/js/store.js" defer></script>
+  <script src="assets/js/components.js" defer></script>
+  <script src="assets/js/pages/project.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <pc-header active="proyecto"></pc-header>
+
+  <main id="contenido">
+    <section class="project-hero">
+      <div class="container">
+        <span class="eyebrow">Diseño de Aplicaciones Web I · Actividad 4</span>
+        <h1>Del wireframe al sitio publicado</h1>
+        <p>PetCare es el sitio de una red ficticia de servicios para mascotas en Medellín. En la Actividad 2 se diseñó con un briefing, un inventario de contenidos y 13 wireframes en Figma; en esta actividad ese prototipo se programó con HTML5, CSS3 y JavaScript y se publicó en un hosting gratuito.</p>
+        <div class="meta">
+          <span>Jesua Herazo Moreno</span>
+          <span>Corporación Universitaria Iberoamericana</span>
+          <span>Docente: Diana Toquica</span>
+          <span>2026</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIDEO DE DEMOSTRACIÓN (requisito del entregable) -->
+    <section class="section" id="video" aria-labelledby="video-title">
+      <div class="container" style="max-width:1000px">
+        <div class="section-head">
+          <span class="eyebrow">Video</span>
+          <h2 id="video-title">Demostración de la creación del sitio</h2>
+          <p>Recorrido por el código, las decisiones de diseño y el flujo completo: buscar un servicio, agendar una cita y gestionarla desde la cuenta.</p>
+        </div>
+        <div class="video-frame" id="video-frame"></div>
+      </div>
+    </section>
+
+    <!-- OBJETIVO -->
+    <section class="section section--alt" aria-labelledby="obj-title">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Objetivo</span>
+          <h2 id="obj-title">Agendar en menos de tres minutos, sin llamar</h2>
+          <p>El problema del cliente: las citas se pedían por teléfono o WhatsApp, sin disponibilidad real ni historial. El sitio centraliza el catálogo, la agenda y la información de cada mascota.</p>
+        </div>
+        <div class="grid grid--3">
+          <article class="card feature"><span class="bubble"><i data-icon="search"></i></span><h3>Descubrir</h3><p>Catálogo con búsqueda, filtros combinables (mascota, categoría, precio y sede), orden y paginación. La URL guarda los filtros para poder compartirlos.</p></article>
+          <article class="card feature"><span class="bubble"><i data-icon="calendar-check" ></i></span><h3>Agendar</h3><p>Formulario en tres pasos con calendario, horarios ocupados, validación en vivo, resumen con descuento de primera cita y archivo .ics para el calendario.</p></article>
+          <article class="card feature"><span class="bubble"><i data-icon="circle-user"></i></span><h3>Mi cuenta</h3><p>Mascotas con etiquetas de estado, próximas citas con opción de reprogramar o cancelar, historial y perfil editable.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- DE WIREFRAME A CÓDIGO -->
+    <section class="section" aria-labelledby="map-title">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Trazabilidad</span>
+          <h2 id="map-title">Cada pantalla del wireframe, programada</h2>
+          <p>Las 13 interfaces de la Actividad 2 (7 de escritorio y 6 móviles) quedaron en 7 páginas responsivas: el mismo archivo se adapta al escritorio y al celular.</p>
+        </div>
+        <div class="table-wrap">
+          <table class="table mapping">
+            <thead><tr><th scope="col">Pantalla del wireframe</th><th scope="col">Página</th><th scope="col">Qué se programó</th></tr></thead>
+            <tbody>
+              <tr><td>D1 · M1 Inicio</td><td><a href="index.html"><code>index.html</code></a></td><td>Hero, servicios destacados, cómo funciona, testimonios, banner y sedes.</td></tr>
+              <tr><td>M2 Menú móvil</td><td><code>&lt;pc-header&gt;</code></td><td>Menú a pantalla completa con cierre por botón o tecla Esc.</td></tr>
+              <tr><td>D2 · M3 Servicios</td><td><a href="servicios.html"><code>servicios.html</code></a></td><td>Búsqueda, filtros funcionales, píldoras quitables, orden y paginación.</td></tr>
+              <tr><td>D3 Detalle</td><td><a href="servicio.html?id=bano-peluqueria"><code>servicio.html</code></a></td><td>Galería, precio según tamaño, profesionales y preguntas frecuentes.</td></tr>
+              <tr><td>D4 · M4 Agendar</td><td><a href="agendar.html"><code>agendar.html</code></a></td><td>Pasos, calendario, horarios, validación y barra fija con el total en móvil.</td></tr>
+              <tr><td>D5 · M6 Confirmación</td><td><code>confirmacion.html</code></td><td>Resumen de la cita y descarga del evento para el calendario.</td></tr>
+              <tr><td>D6 Ingresar</td><td><a href="ingresar.html"><code>ingresar.html</code></a></td><td>Pestañas accesibles para ingresar o crear cuenta, y cuenta de demostración.</td></tr>
+              <tr><td>D7 · M5 Mi cuenta</td><td><a href="mi-cuenta.html"><code>mi-cuenta.html</code></a></td><td>Panel con menú lateral (pestañas en móvil), mascotas, citas y perfil.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- HERRAMIENTAS -->
+    <section class="section section--alt" aria-labelledby="tec-title">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Herramientas</span>
+          <h2 id="tec-title">Cómo está hecho</h2>
+        </div>
+        <div class="grid grid--3">
+          <article class="card feature"><span class="bubble"><i data-icon="code"></i></span><h3>HTML5 semántico</h3><p>Etiquetas <code>header</code>, <code>nav</code>, <code>main</code>, <code>section</code>, <code>article</code>, <code>dialog</code> y <code>details</code>, con etiquetas de formulario y textos alternativos.</p></article>
+          <article class="card feature"><span class="bubble"><i data-icon="monitor-smartphone"></i></span><h3>CSS3 responsivo</h3><p>Variables con la paleta de la Actividad 2, Grid y Flexbox, tipografía fluida con <code>clamp()</code> y cuatro puntos de quiebre (1100, 1023, 860 y 640 px).</p></article>
+          <article class="card feature"><span class="bubble"><i data-icon="layout-dashboard"></i></span><h3>JavaScript sin frameworks</h3><p>Web Components para el encabezado y el pie (como los componentes de Figma) y <code>localStorage</code> para guardar sesión, mascotas y citas en el navegador.</p></article>
+          <article class="card feature"><span class="bubble"><i data-icon="shield-check"></i></span><h3>Accesibilidad WCAG 2.2 AA</h3><p>Contraste mínimo 4,5:1, foco visible, navegación con teclado, áreas táctiles de 44 px o más y respeto por «reducir movimiento».</p></article>
+          <article class="card feature"><span class="bubble"><i data-icon="sparkles"></i></span><h3>Ilustraciones en SVG</h3><p>Las ilustraciones se dibujan con código: pesan muy poco, se ven nítidas en cualquier pantalla y mantienen las metáforas visuales del wireframe.</p></article>
+          <article class="card feature"><span class="bubble"><i data-icon="external-link"></i></span><h3>Hosting gratuito</h3><p>Publicado en Cloudflare Pages: gratis, con HTTPS y red global. El código está en un repositorio privado de GitHub y se publica con Wrangler, la herramienta oficial de Cloudflare.</p></article>
+        </div>
+        <p class="center mt-40" id="enlaces"></p>
+      </div>
+    </section>
+
+    <!-- AVISO LEGAL -->
+    <section class="section" id="aviso" aria-labelledby="aviso-title">
+      <div class="container">
+        <div class="prose">
+          <h2 id="aviso-title">Aviso legal, privacidad y tratamiento de datos</h2>
+          <p><strong>PetCare es una marca ficticia</strong> creada para un proyecto académico. No presta servicios reales y las direcciones, teléfonos, profesionales y testimonios son ilustrativos.</p>
+          <p><strong>Privacidad:</strong> el sitio no tiene servidor ni base de datos. La información que escribes (nombre, correo, celular, mascotas y citas) se guarda únicamente en el almacenamiento local de tu navegador y no se envía a ningún lugar. Las contraseñas no se guardan. Puedes borrar todo desde «Mi cuenta → Borrar mis datos de este navegador».</p>
+          <p><strong>Créditos:</strong> tipografías Nunito e Inter (SIL Open Font License), íconos Lucide (licencia ISC). Diseño, ilustraciones y código: Jesua Herazo Moreno.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <pc-footer></pc-footer>
+</body>
+</html>
